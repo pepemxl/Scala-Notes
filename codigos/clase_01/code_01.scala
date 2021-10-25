@@ -1,0 +1,1 @@
+def evenNumbersMultiplied(numbers:List[Interger]) = numbers.filter(_%2 == 0).map(_*10);
