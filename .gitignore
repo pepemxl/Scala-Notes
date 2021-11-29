@@ -2,4 +2,6 @@
 *.log
 codigos/clase_02/myproject/project/target/*
 codigos/clase_02/myproject/target/*
- 
+.metals/*
+.vscode/*
+librerias/*

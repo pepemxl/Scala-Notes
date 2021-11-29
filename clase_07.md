@@ -1,6 +1,6 @@
 # Estructuras de Control Customizadas
 
-Lo más parecido a templates, sería crear la siguiente estructura:
+Lo más parecido a templates que he encontrado hasta el momento, sería crear la siguiente estructura:
 
 ```scala
 def mifuncion[A](a: Int, fn:String => A, default: A): A = {

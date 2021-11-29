@@ -230,9 +230,26 @@ class Argumentative extends Authority {
 ```
 ## `case` clases
 
-Las clases de casos son clases regulares. Las case clases son apropiadas para modelar datos inmutables. 
+Las clases de casos son clases regulares. Las case clases son apropiadas para modelar datos inmutables, estas son usadas como las estructuras de datos en C/C++, es decir, nos permiten definir un nuevo tipo que contendra el modelo de datos.
+
+Lo minimo que requiere una case class es la palabra reservada `case class`, por ejemplo supongamos queremos hacer una collecion de objetos que mantengan la relación entre los nombres de los aeropuestos y su IATA code; recordemos que el código de aeropuertos de IATA está formado por grupos de tres letras, que designan a cada aeropuerto del mundo, asignadas por la Asociación Internacional de Transporte Aéreo (International Air Transport Association, IATA).
 
 ```scala
+IATA(country: String, iata_code: String, airport_name: String, place: String, state: String)
+
+val BHI = IATA("Argentina", "volaris")
+
+	= Aeropuerto Comandante Espora	Bahía Blanca	Bandera de la Provincia de Buenos Aires Provincia de Buenos Aires
+AEP	Aeroparque Internacional Jorge Newbery	Buenos Aires	Bandera de la Ciudad de Buenos Aires Ciudad Autónoma de Buenos Aires
+EPA	Aeropuerto El Palomar	Área metropolitana de Buenos Aires	Bandera de la Provincia de Buenos Aires Provincia de Buenos Aires
+EZE	Aeropuerto Internacional Ministro Pistarini	[[Área metropolitana de Buenos Aires	Bandera de la Provincia de Buenos Aires Provincia de Buenos Aires
+BRC	Aeropuerto Internacional Teniente Luis Candelaria	San Carlos de Bariloche	Bandera de la Provincia del Río Negro Provincia de Río Negro
+CTC	Aeropuerto Coronel Felipe Varela	San Fernando del Valle de Catamarca	Bandera de la Provincia de Catamarca Provincia de Catamarca
+CRD	Aeropuerto Internacional General Enrique Mosconi	Comodoro Rivadavia	Bandera de la Provincia del Chubut Provincia del Chubut
+COR	Aeropuerto Internacional Ingeniero Aeronáutico Ambrosio Taravella	Córdoba	Bandera de la Ciudad de Córdoba Provincia de Córdoba
+CNQ	Aeropuerto Internacional Doctor Fernando Piragine Niveyro	Corrientes	Bandera de la Provincia de Corrientes Provincia de Corrientes
+FTE	Aeropuerto Internacional Comandante Armando Tola	El Calafate	Bandera de la Provincia de Santa Cruz Provincia de Santa Cruz
+EQS	Aeropuerto Internacional Brigadier General Antonio Parodi	Esquel	Bandera de la Provincia del Chubut Provincia del Chubut
 
 ```
 ## Modelos de Dominio
@@ -249,5 +266,14 @@ Las clases de casos son clases regulares. Las case clases son apropiadas para mo
 ```
 ## 
 ```scala
+
+```
+## 
+```scala
+
+```
+## 
+```scala
+
 
 ```

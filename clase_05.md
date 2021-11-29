@@ -2,7 +2,7 @@
 
 ## Expresiones
 
-Hay que tener cuidado con las expresiones que creamos, por ejemplo comparemos la creción de listas siguiente:
+Hay que tener cuidado con las expresiones que creamos, por ejemplo comparemos la creación de listas siguiente:
 
 ```scala
 scala> :paste
