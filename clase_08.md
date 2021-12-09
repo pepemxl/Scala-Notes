@@ -46,31 +46,60 @@ res92: Boolean = true
 
 ## Clases Abstractas
 
-Para crear clases abstractas en Scala usamos el espcificador `abstract`:
+
+Una clase con miembros actractos es en si una clase absctracta y deberá ser declarada de esta manera.
+Para crear clases abstractas en **Scala** usamos el espcificador `abstract`:
+
+```scala
+abstract class Element {
+  def contents: Array[String]
+}
+```
+que al correr data el resultado esperado:
+```scala
+val e1 = new Element
+// Exiting paste mode, now interpreting.
+class Element is abstract; cannot be instantiated
+```
+Cada vez que queramos  instanciar un objeto `Element` deberemos definir la funcion `contents`, por ejemplo:
+```scala
+val e1 = new Element{
+  def contents: Array[String] = {
+    Array("1","2","3","4")
+  }
+}
+```
 
 ```scala
 scala> :paste
 // Entering paste mode (ctrl-D to finish)
 import java.time.LocalDate
+
 abstract class Car(make: String, model: String, year: Int) {
   def isVintage: Boolean = LocalDate.now.getYear - year > 20
 }
 // Exiting paste mode, now interpreting.
 defined class Car
 ```
-Cosa curiosa es que aunque no es una clase real clase actracta no podemos instanciarla por el simple de hecho de ser abstracta.
+
+Cosa curiosa es que aunque no parece ser realmente una clase abstracta no podemos instanciarla por el simple de hecho haber usado el especificador `abstract`.
+
+Si intentamos instanciarla de la siguiente manera `val obj = new Class(var)` nos marcará un error:
+
 ```scala
 scala> val mustang = new Car("Ford", "Mustang", 1965)
 <console>:36: error: class Car is abstract; cannot be instantiated
        val mustang = new Car("Ford", "Mustang", 1965)
 ```
-Din embargo basto con dar la implementación de lo que no halla sido definido, que en este caso es nada, asi que basta con agregar las llaves al final.
+
+Sin embargo basto con dar la implementación de lo que no halla sido definido, que en este caso es nada, asi que basta con agregar las llaves al final.
+
 ```scala
 scala> val mustang = new Car("Ford", "Mustang", 1965) {}
 mustang: Car = $anon$1@28085f30
 ```
 
-Ahora que si definimos algun metodo, variable de manera actracta y debemos de agregar el especificador:
+Ahora que si definimos algún metodo abstracto dentro de una clase, debemos de agregar el especificador `abstract` delo contrario tendremos un error, por ejemplo:
 ```scala
 scala> :paste
 // Entering paste mode (ctrl-D to finish)
