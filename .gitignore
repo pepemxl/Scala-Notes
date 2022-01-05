@@ -5,3 +5,8 @@ codigos/clase_02/myproject/target/*
 .metals/*
 .vscode/*
 librerias/*
+sbt/examples/*/.bsp
+sbt/examples/*/project/project/*
+sbt/examples/*/project/target/*
+sbt/examples/*/core/target
+sbt/examples/*/target
