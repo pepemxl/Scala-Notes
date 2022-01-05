@@ -5,3 +5,4 @@ codigos/clase_02/myproject/target/*
 .metals/*
 .vscode/*
 librerias/*
+.DS_Store
