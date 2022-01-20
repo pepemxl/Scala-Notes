@@ -10,3 +10,4 @@ sbt/examples/*/project/project/*
 sbt/examples/*/project/target/*
 sbt/examples/*/core/target
 sbt/examples/*/target
+target/

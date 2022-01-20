@@ -711,6 +711,122 @@ A minimal Scala project.
 name [Scala Seed Project]: hello2
 
 Template applied in D:\Scala-Notes\sbt\examples\example_02\.\hello2
-¿
 ```
+
+# Estructura de Archivos
+
+
+El lugar donde se encuentra en el archivo `build.sbt `  es la base del directorio.
+
+sbt usa el mismo esquema de archivos de maven
+```
+src/
+  main/
+    resources/
+       <files to include in main jar here>
+    scala/
+       <main Scala sources>
+    scala-2.12/
+       <main Scala 2.12 specific sources>
+    java/
+       <main Java sources>
+  test/
+    resources
+       <files to include in test jar here>
+    scala/
+       <test Scala sources>
+    scala-2.12/
+       <test Scala 2.12 specific sources>
+    java/
+       <test Java sources>
+```
+
+Cualquier otro directorio o directorio oculto será ignorado. Podemos agregar archivos scala en el directorio base, sin embargo, esto es desaconsejado.
+
+
+
+## Definición del Build
+
+La definición del Build se realiza en el archivo `build.sbt` el cual será un conjunto de proyectos de tipo `Project`.
+
+Para definir un subproyecto o proyecto lo hacemos en `build.sbt` como:
+
+```scala
+lazy val root = (project in file("."))
+  .settings(
+    name := "Hello",
+    scalaVersion := "2.12.12"
+  )
+```
+
+Cada subproyecto es configurado por un par llave-valor. 
+
+Usualmente la versión de scala es global para todo el proyecto y el archivo `build.sbt`:
+
+```scala
+ThisBuild / scalaVersion     := "2.13.7"
+ThisBuild / version          := "0.1.0-SNAPSHOT"
+ThisBuild / organization     := "com.functionalprogramming"
+ThisBuild / organizationName := "functionalprogramming"
+
+lazy val root = (project in file("."))
+  .settings(
+    name := "FunctionalProgramming"
+  )
+```
+
+aqui 
+
+```scala
+organization := { "com.functionalprogramming" }
+```
+
+donde 
+- `organization` llave
+- `:=` operador
+- `com.functionalprogramming ` es (setting/task) cuerpo o expresión
+
+
+### Definir versión de sbt
+
+En `project/build.properties`
+```bash
+sbt.version=1.6.1
+```
+ Si la versión no se encuentra localmente está será descargada.
+
+
+## Multiproyectos
+
+Podemos incluir multiples proyectos en un mismo build. Lo cual es util cuando un proyecto depende de otro.
+
+Cada proyecto debe conmtener su propio directorio de código fuente, el cual generará su propio archivo `jar` cuando se empaque.
+
+```scala
+ThisBuild / scalaVersion     := "2.12.12"
+ThisBuild / version          := "0.1.0-SNAPSHOT"
+ThisBuild / organization     := "com.functionalprogramming"
+ThisBuild / organizationName := "functionalprogramming"
+
+lazy val root = (project in file("."))
+  .settings(
+    name := "FunctionalProgramming"
+  )
+
+lazy val util = (project in file("util"))
+  .settings(
+    // alguna configuracion
+  )
+lazy val core = (project in file("core"))
+  .settings(
+    // alguna configuracion
+  )
+```
+
+
+
+
+
+
+
 
