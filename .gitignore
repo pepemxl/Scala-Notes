@@ -13,3 +13,4 @@ sbt/examples/*/target
 target/
 /.bsp/
 */**/target/
+*/**/.bsp/
