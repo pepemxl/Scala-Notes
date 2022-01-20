@@ -1,6 +1,33 @@
-# Exceptions in Scala
+# Exceptions in Scala (Option, Either)
 
 An exception is an unwanted or to be more specific it is an **unexpected** event, which occurs during the execution/compilation of a program usually at run time, that disrupts the normal flow of the program’s instructions. 
+
+Remember the natural way to catch an exception programatically is using 
+`try...catch...finally` where it is an expression in scala then returns something, the problem
+is that it has a non-functional behavior presenting problems with referetially transparency. 
+The result is decided by the `try` and `catch` block.
+
+
+```scala
+scala> :paste
+// Entering paste mode (ctrl-D to finish)
+
+val args = Array.empty[String]
+val my_filename = try{
+  args.head
+}catch{
+  case _:  NoSuchElementException => "default.txt"
+}finally{
+  println("Hello try finally block")
+}
+
+
+// Exiting paste mode, now interpreting.
+
+Hello try finally block
+val args: Array[String] = Array()
+val my_filename: String = default.txt
+```
 
 ## JAVA Exceptions
 
@@ -13,53 +40,6 @@ Since JDK 7, there are 3 new characteristics:
 - Try for resources, it seems resources are free in an automatic way.
 - Multi-catch `catch(Exception1 | Exception2 | ... )`
 - `rethrow`
-
-Then we can use multi-catch in scala!!!
-
-### Multi-catch example:
-```scala
-object MultiCatch {
-  def main(args: Array[String]): Unit = {
-    val a = 28
-    val b = 0
-    var resultado = 0
-    var chars = List('A', 'B', 'C')
-    for (i <- 0 until 2) {
-      try {
-        if (i == 0)
-          resultado = a / b //genera un ArithmeticException
-        else
-          chars = List('X') //genera un ArrayIndexOutOfBoundsException
-      } catch {
-        case e@(_: ArithmeticException | _: ArrayIndexOutOfBoundsException) => {
-          println("Excepción multiple capturada: " + e)
-        }
-        case e@(_: ArithmeticException) => {
-          println("Excepción única capturada: " + e)
-        }
-        case e => {
-          println("Excepción capturada pero no identificada: " + e)
-        }
-      }
-    }
-    println("Después del multi-catch")
-  }
-}
-
-MultiCatch.main(Array())
-```
-
-```scala
-defined object MultiCatch
-
-Excepción única capturada: java.lang.ArithmeticException: / by zero
-Después del multi-catch
-```
-
-El primero es compatible con la gestión automática de recursos, que automatiza el proceso de liberación de un recurso, como un archivo, cuando ya no es necesario. Se basa en una forma expandida de , llamada declaración (try con recursos), y se describe más en Java Avanzado, cuando se discuten los archivos.
-La segunda característica nueva se llama multi-catch.
-Y la tercera a veces se llama final rethrow o more precise rethrow. Estas dos características se describen aquí.
-
 
 ## Throw an Exception
 
@@ -435,7 +415,7 @@ def lift[A,B](f: A => B): Option[A] => Option[B] = _ map f
 val absO: Option[Double] => Option[Double] = lift(math.abs)
 ```
 
-Excercise 4.3
+## Exercise 4.3
 Write a generic function map2 that combines two Option values using a binary function. If either Option value is None, then the return value is too. Here is its signature:
 ```scala
 def map2[A,B,C](a: Option[A], b: Option[B])(f: (A, B) => C): Option[C]
@@ -452,7 +432,7 @@ def map2[A, B, C](a: Option[A], b: Option[B])(f: (A, B) => C): Option[C] = {
   }
 ```
 
-### Excercise 4.4
+### Exercise 4.4
 Write a function sequence that combines a list of Options into one Option containing a list of all the Some values in the original list. If the original list contains None even once, the result of the function should be None; otherwise the result should be Some with a list of all the values. Here is its signature:3
 ```scala
 def sequence[A](a: List[Option[A]]): Option[List[A]]
@@ -466,6 +446,8 @@ def sequence[A](a: List[Option[A]]): Option[List[A]] = {
 ```
 
 def traverse[A, B](a: List[A])(f: A => Option[B]): Option[List[B]]
+
+
 
 Implement traverse function. It’s straightforward to do using map and sequence, but try for a more efficient implementation that only looks at the list once. In fact, imple- ment sequence in terms of traverse.
 
@@ -488,7 +470,7 @@ def mean(xs: IndexedSeq[Double]): Either[String, Double] = {
 }
 ```
 
-Excercise 4.6
+## Exercise 4.6
 Implement versions of map, flatMap, orElse, and map2 on Either that operate on the
 Right value.
 ```scala
@@ -529,12 +511,19 @@ object Either {
 
   def mean(xs: IndexedSeq[Double]): Either[String, Double] = {
     if (xs.isEmpty) 
-      Left("Mean of empty list!")
+      Left("Media del caso vacio!")
     else 
       Right(xs.sum / xs.length)
   }
 
 ```
+
+## Exercise 4.7
+Implement sequence and traverse for Either. These should return the first error that’s encountered, if there is one.
+def sequence[E, A](es: List[Either[E, A]]): Either[E, List[A]] def traverse[E, A, B](as: List[A])(
+                      f: A => Either[E, B]): Either[E, List[B]
+
+
 
 ## How to detect an Exception and what to do
 
@@ -555,16 +544,104 @@ Here the trick is define `barriers` for our asyncronic events.
 Does not matter the way, always can exist pitfalls, if for some reason the `special word` used is not catched then we have a trouble, regardless there exist generical ways to handle exceptions, it is important to know when a exception should be handled or only catched.
 
 
-```scala
+## New Features JDK7 to Scala
 
+### Try for resources
+
+El primero es compatible con la gestión automática de recursos, que automatiza el proceso de liberación de un recurso, como un archivo, cuando ya no es necesario. Se basa en una forma expandida de , llamada declaración (try con recursos), y se describe más en Java Avanzado, cuando se discuten los archivos.
+
+### MultiCatch
+
+Then we can use multi-catch in scala!!!
+Here I will help myuself using operator `@` it will enable me to bind a matched pattern to a variable.
+
+### Multi-catch example:
+```scala
+object MultiCatch {
+  def main(args: Array[String]): Unit = {
+    val a = 28
+    val b = 0
+    var resultado = 0
+    var chars = List('A', 'B', 'C')
+    for (i <- 0 until 2) {
+      try {
+        if (i == 0)
+          resultado = a / b //genera un ArithmeticException
+        else
+          chars = List('X') //genera un ArrayIndexOutOfBoundsException
+      } catch {
+        case e@(_: ArithmeticException | _: ArrayIndexOutOfBoundsException) => {
+          println("Excepción multiple capturada: " + e)
+        }
+        case e@(_: ArithmeticException) => {
+          println("Excepción única capturada: " + e)
+        }
+        case e => {
+          println("Excepción capturada pero no identificada: " + e)
+        }
+      }
+    }
+    println("Después del multi-catch")
+  }
+}
+
+MultiCatch.main(Array())
 ```
 
 ```scala
+defined object MultiCatch
 
+Excepción única capturada: java.lang.ArithmeticException: / by zero
+Después del multi-catch
+```
+
+
+## Try/Success/Failure
+
+[link](https://docs.scala-lang.org/overviews/scala-book/functional-error-handling.html)
+
+Another trio of classes named Try, Success, and Failure work just like Option, Some, and None, but with two nice features:
+
+- `Try` makes it very simple to catch exceptions
+- `Failure` contains the exception
+
+
+A classical Option:
+
+```scala
+def toInt(s: String): Option[Int] = {
+    try {
+        Some(Integer.parseInt(s.trim))
+    } catch {
+        case e: Exception => None
+    }
+}
+```
+become
+```scala
+scala> :paste
+// Entering paste mode (ctrl-D to finish)
+
+import scala.util.{Try,Success,Failure}
+def toInt(s: String): Try[Int] = Try { Integer.parseInt(s.trim) }
+
+// Exiting paste mode, now interpreting.
+
+import scala.util.{Try, Success, Failure}
+def toInt(s: String): scala.util.Try[Int]
 ```
 
 ```scala
+toInt(x) match {
+    case Some(i) => println(i)
+    case None => println("That didn't work.")
+}
 
+val y = for {
+    a <- toInt(stringA)
+    b <- toInt(stringB)
+    c <- toInt(stringC)
+} yield a + b + c
 ```
 
 ```scala

@@ -1,11 +1,3 @@
-# Programación Funcional
+# Diseño funcional y librerías de combinación en Scala
 
 
-```scala
-class Cafe {
-    def buiy
-}
-```
-
-
-case class Charge(cc: CreditCard) 

@@ -711,6 +711,7 @@ A minimal Scala project.
 name [Scala Seed Project]: hello2
 
 Template applied in D:\Scala-Notes\sbt\examples\example_02\.\hello2
-¿
 ```
+
+
 
