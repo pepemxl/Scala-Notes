@@ -11,3 +11,5 @@ sbt/examples/*/project/target/*
 sbt/examples/*/core/target
 sbt/examples/*/target
 target/
+/.bsp/
+*/**/target/
